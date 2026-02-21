@@ -22,6 +22,16 @@ Dimmer places a transparent black overlay window on top of your screen. Adjustin
 - Supports multiple displays
 - Persists dimming level across launches
 
+## Install
+
+1. Download the latest `.dmg` from [Releases](https://github.com/MartinMoizard/Dimmer/releases)
+2. Open the `.dmg` and drag Dimmer to your Applications folder
+3. Launch Dimmer — macOS will show a warning because the app is not notarized
+4. Open **System Settings > Privacy & Security**, scroll down to the Security section, and click **Open Anyway** next to the Dimmer message
+5. Confirm by clicking **Open** in the dialog that appears
+
+You only need to do this once. After that, Dimmer will open normally.
+
 ## Requirements
 
 - macOS 26+
