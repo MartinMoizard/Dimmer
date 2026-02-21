@@ -31,6 +31,16 @@ Dimmer places a transparent black overlay window on top of your screen. Adjustin
 
 Open `Dimmer.xcodeproj` in Xcode and run (`Cmd+R`).
 
+## Generating the App Icon
+
+The app icon is generated programmatically via a Swift script. To regenerate all icon sizes:
+
+```bash
+swift generate_icon.swift
+```
+
+This produces all required sizes (16–1024px) directly into the asset catalog.
+
 ## License
 
 MIT
