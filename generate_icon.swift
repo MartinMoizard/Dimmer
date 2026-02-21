@@ -170,13 +170,17 @@ let outputPath = scriptURL.appendingPathComponent("Dimmer/Assets.xcassets/AppIco
 
 let sizes = [16, 32, 64, 128, 256, 512, 1024]
 for s in sizes {
-    let resized = NSImage(size: NSSize(width: s, height: s))
-    resized.lockFocus()
-    image.draw(in: NSRect(x: 0, y: 0, width: s, height: s))
-    resized.unlockFocus()
-    guard let tiffData = resized.tiffRepresentation,
-          let bmp = NSBitmapImageRep(data: tiffData),
-          let pngData = bmp.representation(using: .png, properties: [:]) else { continue }
+    let bmp = NSBitmapImageRep(bitmapDataPlanes: nil, pixelsWide: s, pixelsHigh: s,
+        bitsPerSample: 8, samplesPerPixel: 4, hasAlpha: true, isPlanar: false,
+        colorSpaceName: .deviceRGB, bytesPerRow: 0, bitsPerPixel: 0)!
+    bmp.size = NSSize(width: s, height: s) // 1x scale (pixels == points)
+    let ctx = NSGraphicsContext(bitmapImageRep: bmp)!
+    NSGraphicsContext.current = ctx
+    image.draw(in: NSRect(x: 0, y: 0, width: s, height: s),
+               from: NSRect(x: 0, y: 0, width: size, height: size),
+               operation: .copy, fraction: 1.0)
+    NSGraphicsContext.current = nil
+    guard let pngData = bmp.representation(using: .png, properties: [:]) else { continue }
     try! pngData.write(to: URL(fileURLWithPath: "\(outputPath)/icon_\(s).png"))
 }
 print("All icon sizes generated in \(outputPath)")
