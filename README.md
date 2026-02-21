@@ -1,4 +1,4 @@
-# Dimmer
+# 🌒 Dimmer
 
 A macOS menu bar app that dims your screen beyond the system's minimum brightness. Useful for working in dark environments where even the lowest brightness setting is too bright.
 
