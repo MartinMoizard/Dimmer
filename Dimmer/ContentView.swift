@@ -1,8 +1,10 @@
 import SwiftUI
 
 struct ContentView: View {
-    @AppStorage("dimLevel") private var dimLevel: Double = 0
+    @AppStorage("brightnessLevel") private var brightness: Double = 1.0
     private let overlayManager = OverlayManager.shared
+
+    private var dimming: Double { 1.0 - brightness }
 
     var body: some View {
         VStack(spacing: 16) {
@@ -10,23 +12,17 @@ struct ContentView: View {
                 .font(.headline)
 
             HStack(spacing: 12) {
-                Image(systemName: "sun.max")
-                    .foregroundStyle(.secondary)
-
-                Slider(value: $dimLevel, in: 0...0.9)
-                    .onChange(of: dimLevel) {
-                        overlayManager.opacity = dimLevel
-                    }
-
                 Image(systemName: "moon.fill")
                     .foregroundStyle(.secondary)
+
+                Slider(value: $brightness, in: 0.1...1.0)
+                    .onChange(of: brightness) {
+                        overlayManager.opacity = dimming
+                    }
+
+                Image(systemName: "sun.max")
+                    .foregroundStyle(.secondary)
             }
-
-            Text("\(Int(dimLevel * 100))% dimming")
-                .font(.caption)
-                .foregroundStyle(.secondary)
-
-            Divider()
 
             Button("Quit") {
                 overlayManager.removeOverlays()
@@ -36,7 +32,7 @@ struct ContentView: View {
         .padding()
         .frame(width: 220)
         .onAppear {
-            overlayManager.opacity = dimLevel
+            overlayManager.opacity = dimming
         }
     }
 }

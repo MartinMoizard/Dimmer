@@ -26,6 +26,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         popover.contentSize = NSSize(width: 220, height: 200)
         popover.behavior = .transient
         popover.contentViewController = NSHostingController(rootView: ContentView())
+
+        let brightness = UserDefaults.standard.double(forKey: "brightnessLevel")
+        let level = brightness == 0 ? 1.0 : brightness
+        OverlayManager.shared.opacity = 1.0 - level
     }
 
     @objc private func togglePopover() {
