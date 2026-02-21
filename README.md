@@ -34,7 +34,7 @@ You only need to do this once. After that, Dimmer will open normally.
 
 ## Requirements
 
-- macOS 26+
+- macOS 15 (Sequoia) or later
 - Xcode 26.2+ to build from source
 
 ## Building
